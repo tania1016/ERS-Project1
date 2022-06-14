@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration Form </title>
+<script>
+	var request;
+	function sendInfo() {
+		var username = document.registerForm.username.value;
+		var url = "UsernameFinder?username=" + username;
+
+		if (window.XMLHttpRequest) {
+			request = new XMLHttpRequest();
+		} else if (window.ActiveXObject) {
+			request = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		try {
+			request.onreadystatechange = getInfo;
+			request.open("GET", url, true);
+			request.send();
+		} catch (e) {
+			alert("Unable to connect to server");
+		}
+	}
+
+	function getInfo() {
+		if (request.readyState == 4) {
+			var val = request.responseText;
+			document.getElementById('mylocation').innerHTML = val;
+		}
+	}
+</script>
+      <link rel="stylesheet" href="style.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+    <div class="container">
+        <div class="text">Registration Form</div>
+        <form action="RegisterServlet" method="post" name="registerForm" id="registerForm">
+           <div class="form-row">
+              <div class="input-data">
+                 <input type="text" id="firstname" name="firstname" required>
+                 <div class="underline"></div>
+                 <label for="">First Name</label>
+              </div>
+              <div class="input-data">
+                 <input type="text" id="lastname" name="lastname" required>
+                 <div class="underline"></div>
+                 <label for="">Last Name</label>
+              </div>
+           </div>
+           <div class="form-row">
+              <div class="input-data">
+                 <input type="text" id="email" name="email" required>
+                 <div class="underline"></div>
+                 <label for="">Email Address</label>
+              </div>
+              </div>
+              <div class="form-row">
+              <div class="input-data">
+                 <input type="text" required id="username"
+					name="username" onblur=sendInfo()>
+                 <div class="underline"></div>
+                 <label for="floatingInput">Username</label>
+                 <span id="mylocation"></span>
+              </div>
+               <div class="input-data">
+                 <input type="text" required id="password"
+					name="password" >
+                 <div class="underline"></div>
+                 <label for="floatingPassword">Password</label>
+              </div>
+              </div>
+           <div class="form-row">
+              <div class="input-data textarea">
+                 <textarea rows="4" cols="80" id="address" name="address"></textarea>
+                 <br />
+                 <div class="underline"></div>
+                 <label for="">Address</label>
+               
+
+                 <div class="input-data">
+                 <input type="text" required id="role"
+					name="role">
+                 <div class="underline"></div>
+                 <label for="">Role</label>
+              </div>
+			</div>
+                 <br />
+                 <div class="form-row submit-btn">
+                    <div class="input-data">
+                       <div class="inner"></div>
+                       <input type="submit" value="submit">
+                    </div>
+					</div>
+                 </div>
+        </form>
+		</div>
+   </body>
+</html>
